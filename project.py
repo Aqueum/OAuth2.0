@@ -138,8 +138,8 @@ def gconnect():
 
     # See if a user exists, if it doesn't make a new one
     # MC: Obtain User Credentials or create New User
-    if getUserID(email) == None:
-        createUser(login_sessiom)
+    if getUserID(login_session['email']) == None:
+        createUser(login_session)
 
     output = ''
     output += '<h1>Welcome, '
