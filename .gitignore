@@ -1,8 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/UFS-OAuth2.iml
-.idea/modules.xml
-.idea/workspace.xml
-.vagrant/
+.idea/*
+.vagrant/*
 database_setup.pyc
 
 # Confidential
