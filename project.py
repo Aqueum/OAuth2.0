@@ -40,6 +40,29 @@ def showLogin():
     # return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
 
+# User Helper Functions
+
+
+def createUser(login_session):
+    newUser = User(name=login_session['username'], email=login_session[
+                   'email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
+
+
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -114,6 +137,9 @@ def gconnect():
     login_session['email'] = data['email']
 
     # See if a user exists, if it doesn't make a new one
+    # MC: Obtain User Credentials or create New User
+    if getUserID(email) == None:
+        createUser(login_sessiom)
 
     output = ''
     output += '<h1>Welcome, '
@@ -126,34 +152,10 @@ def gconnect():
     print "done!"
     return output
 
-    # MC: Obtain User Credentials or create New User
-    If getUserID(login_session['email']) == None:
-        createUser(login_sessiom)
 
 
-# User Helper Functions
 
 
-def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
-    session.add(newUser)
-    session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
-    return user.id
-
-
-def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
-    return user
-
-
-def getUserID(email):
-    try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
-    except:
-        return None
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
