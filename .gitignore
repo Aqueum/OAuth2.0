@@ -4,4 +4,4 @@
 database_setup.pyc
 
 # Confidential
-client_secrets.json
+*secrets.json
