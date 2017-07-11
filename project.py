@@ -279,10 +279,10 @@ def showMenu(restaurant_id):
     items = session.query(MenuItem).filter_by(
         restaurant_id=restaurant_id).all()
     creator = getUserInfo(restaurant.user_id)
-    if login_session['user_id'] == restaurant.user_id or 'username' not in login_session:
-        return render_template('menu.html', items=items, restaurant=restaurant, creator=creator)
-    else:
+    if login_session['user_id'] != restaurant.user_id or 'username' not in login_session:
         return render_template('publicmenu.html', items=items, restaurant=restaurant, creator=creator)
+    else:
+        return render_template('menu.html', items=items, restaurant=restaurant, creator=creator)
 
 
 # Create a new menu item
