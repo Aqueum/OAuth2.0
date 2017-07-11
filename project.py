@@ -154,11 +154,6 @@ def gconnect():
     return output
 
 
-
-
-
-
-
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect')
 def gdisconnect():
@@ -280,7 +275,10 @@ def showMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(
         restaurant_id=restaurant_id).all()
-    return render_template('menu.html', items=items, restaurant=restaurant)
+    if user_id == restaurant.user_id:
+        return render_template('menu.html', items=items, restaurant=restaurant)
+    else:
+        return render_template('publicmenu.html', items=items, restaurant=restaurant)
 
 
 # Create a new menu item
