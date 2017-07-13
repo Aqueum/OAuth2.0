@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/*
-.vagrant/*
+.DS_Store
+.vagrant/
 database_setup.pyc
 
 # Confidential
@@ -8,3 +9,4 @@ database_setup.pyc
 
 # Nested for convinience of using same vagrant box
 UFS-APIs/
+UFS-ItemCatalogue/
